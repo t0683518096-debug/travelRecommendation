@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Contactez-nous</title>
+  <link rel="stylesheet" href="./travelRecommendation.css">
+  <style>
+    body{
+        text-align: center;
+    }
+    /* Un peu de style de base à des fins de démonstration */
+    #contactForm {
+      max-width: 400px;
+      margin: 0 auto;
+    }
+    #contactForm input,
+    #contactForm textarea {
+      width: 100%;
+      margin-bottom: 15px;
+      padding: 8px;
+    }
+    #contactForm button {
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+    #contactForm button:hover {
+      background-color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+  <h1>Contactez-nous</h1>
+  <p>N'hésitez pas à nous contacter pour en savoir plus sur nos recommandations.</p>
+
+  <form id="contactForm">
+    <div>
+      <label for="name">Nom</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <div>
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required>
+    </div>
+    <div>
+      <label for="message">Message</label>
+      <textarea id="message" name="message" rows="5" required></textarea>
+    </div>
+    <input type="submit" value="Soumettre" onclick="thankyou()" formaction="./travel_recommendation.html">
+    <!--button type="submit" onclick="thankyou()" action="./travel_recommendation.html">Soumettre</button-->
+  </form>
+  <script>
+    function thankyou(){
+        alert('Merci de nous avoir contactés !')
+    }
+  </script>
+</body>
+</html>
