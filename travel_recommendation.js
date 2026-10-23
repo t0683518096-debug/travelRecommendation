@@ -16,9 +16,28 @@ function ajouteObjetHTML(objet) {
     image.style="width: 93vw;"
     blocResultat.appendChild(image);
     const p = document.createElement("p");
-    p.innerText=objet.name+" - "+objet.description;
+    const fuseauHoraire=createTimeZone(objet.name);
+    p.innerText=objet.name+affichageHeure(fuseauHoraire)+" - "+objet.description;
+    const blocHoraire=document.getElementById("heureLocale");
+    blocHoraire.innerText="font-size:10px";
     blocResultat.appendChild(p);
     resultZone.appendChild(blocResultat);
+}
+
+/**
+ * Création du timeZone à partir du nom de la ville et du pays
+ */
+function createTimeZone(nomDuLieu) {
+    const position=nomDuLieu.indexOf(", ");
+    console.log("position = " + position);
+    const continent = nomDuLieu.slice(position+1).trim()
+    console.log("continent = " + continent);
+    const pays = nomDuLieu.slice(0,position).trim()
+    console.log("pays = " + pays);
+
+    const fuseauHoraire=continent+"/"+pays;
+    console.log("fuseauHoraire = " + fuseauHoraire);
+    return fuseauHoraire
 }
 /**
  * Effectue la recherche selon la recommandation fournie sur le moteur de recherche selon certains mots clefs
@@ -67,10 +86,19 @@ function recommandations() {
     
   }
 
-  function reset() {
+function affichageHeure(zoneGeo) {
+    const options = { timeZone: zoneGeo, hour12: false, hour: 'numeric', minute: 'numeric', second: 'numeric' };
+	const horaire = new Date().toLocaleTimeString('fr-fr', options);
+	console.log("Current time :", horaire);
+    return " (Heure locale : "+ horaire +")"
+}
+
+function reset() {
     const searchInput=document.getElementById("searchInput");  // champ de recherche
     searchInput.value="";
-  }
+}
 
 document.getElementById("btnSearch").addEventListener("click",recommandations);
 document.getElementById("btnReset").addEventListener("click",reset);
+document.getElementById("heureLocale").textContent = affichageHeure('Europe/Paris');    // Afficher l'heure locale sur la page d'accueil
+
