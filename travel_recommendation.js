@@ -6,39 +6,29 @@ function ajouteObjetHTML(objet) {
     console.log(objet.id);
     console.log(objet.name);
     console.log(objet.imageUrl);
+    console.log(objet.timeZone);
     console.log(objet.description);
 
     const blocResultat = document.createElement("div");
     blocResultat.classList="grille-item";
+
+    // Défénition de l'image
     const image = document.createElement("img");
     image.src=objet.imageUrl;
     image.alt=objet.description;
     image.style="width: 93vw;"
     blocResultat.appendChild(image);
+
+    // Défénition de la légende
     const p = document.createElement("p");
-    const fuseauHoraire=createTimeZone(objet.name);
-    p.innerText=objet.name+affichageHeure(fuseauHoraire)+" - "+objet.description;
-    const blocHoraire=document.getElementById("heureLocale");
-    blocHoraire.innerText="font-size:10px";
+    p.innerHTML=objet.name+" <span style='font-size:10px'> "+affichageHeure(objet.timeZone)+" </span> - "+objet.description;
     blocResultat.appendChild(p);
+
+    // Intégration du bloc résultat sur la page
     resultZone.appendChild(blocResultat);
 }
 
-/**
- * Création du timeZone à partir du nom de la ville et du pays
- */
-function createTimeZone(nomDuLieu) {
-    const position=nomDuLieu.indexOf(", ");
-    console.log("position = " + position);
-    const continent = nomDuLieu.slice(position+1).trim()
-    console.log("continent = " + continent);
-    const pays = nomDuLieu.slice(0,position).trim()
-    console.log("pays = " + pays);
 
-    const fuseauHoraire=continent+"/"+pays;
-    console.log("fuseauHoraire = " + fuseauHoraire);
-    return fuseauHoraire
-}
 /**
  * Effectue la recherche selon la recommandation fournie sur le moteur de recherche selon certains mots clefs
  */
@@ -74,9 +64,8 @@ function recommandations() {
                 });
             }else if(dataJSON.includes(searchItem)) {
                 // le mot clef a été trouvé dans les données
-                console.log(`Données ${section} présente dans les données`);
+                console.log(`Données ${searchItem} présente dans les données`);
             }
-            console.log(`Section choisie = ${section}`);
         })
         .catch(error => {
             console.error('Error:', error);
