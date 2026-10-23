@@ -73,28 +73,10 @@ nav {
     margin-top: 30px;
   }
   
-  #report,#result {
-    padding: 10px;
-    max-width: 400px;
-    word-wrap: break-word;
-  }
-#result{
-  height: 400px;
-  width: 500px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  flex-direction: column;
-}
-  #result img{
-    width: 200px;
-    height: 100px;
-}
   
     /* Le conteneur de la grille */
 .grille-conteneur {
     display: grid; /* Active CSS Grid */
-    grid-template-columns: repeat(3, 1fr); /* 3 colonnes égales */
     gap: 15px; /* Espace entre les éléments */
     padding: 20px;
 }

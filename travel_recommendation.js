@@ -1,4 +1,26 @@
 /**
+ * Ajoute un résultat dans la page HTML - mise en page
+ */
+function ajouteObjetHTML(objet) {
+    const resultZone=document.getElementById("result");       // Zone html pour afficher le résultat de la recherche
+    console.log(objet.id);
+    console.log(objet.name);
+    console.log(objet.imageUrl);
+    console.log(objet.description);
+
+    const blocResultat = document.createElement("div");
+    blocResultat.classList="grille-item";
+    const image = document.createElement("img");
+    image.src=objet.imageUrl;
+    image.alt=objet.description;
+    image.style="width: 93vw;"
+    blocResultat.appendChild(image);
+    const p = document.createElement("p");
+    p.innerText=objet.name+" - "+objet.description;
+    blocResultat.appendChild(p);
+    resultZone.appendChild(blocResultat);
+}
+/**
  * Effectue la recherche selon la recommandation fournie sur le moteur de recherche selon certains mots clefs
  */
 function recommandations() {
@@ -6,42 +28,31 @@ function recommandations() {
     if (searchItem) {   // mot clef non vide
         console.log(searchItem);
 
-        const resultZone=document.getElementById("result");       // Zone html pour afficher le résultat de la recherche
-        const resultZoneGrid = [];
-        resultZoneGrid[1]=document.getElementById("resultat1");       // Zone html pour afficher le résultat de la recherche
-        resultZoneGrid[2]=document.getElementById("resultat2");
-
         let dataJSON
 
         fetch('./travel_recommendation_api.json')
         .then(response => response.json())
         .then(dataJSON => {
             console.table(dataJSON);
-            let section=""
             // Défini les résultats selon les mots clefs proposés
             if(searchItem.includes("beach")) {
-                section="beaches";
-                resultZone.innerHTML="";
+                document.getElementById("result").innerHTML="";       // Vide la zone de résultat html pour afficher le résultat de la recherche
                 dataJSON.beaches.forEach(beach => {
-                    console.log(beach.id);
-                    console.log(beach.name);
-                    console.log(beach.imageUrl);
-                    console.log(beach.description);
-                    const image = document.createElement("img");
-                    image.src=beach.imageUrl;
-                    image.alt=beach.description;
-                    image.classList="grille-item"
-                    image.style="width: auto; height: auto; max-width: none;"
-                    resultZone.appendChild(image);
-                    const p = document.createElement("p");
-                    p.innerText=beach.name+" - "+beach.description;
-                    p.style="max-width: none;"
-                    resultZone.appendChild(p);
+                    ajouteObjetHTML(beach);
                 });
             }else if(searchItem.includes("temple")) {
-                section="temples";
+                document.getElementById("result").innerHTML="";       // Vide la zone de résultat html pour afficher le résultat de la recherche
+                dataJSON.temples.forEach(temple => {
+                    ajouteObjetHTML(temple);
+                });
             }else if(searchItem.includes("countr")) {
-                section="countries";
+                document.getElementById("result").innerHTML="";       // Vide la zone de résultat html pour afficher le résultat de la recherche
+                dataJSON.countries.forEach(country => {
+                    console.log(country.name);
+                    country.cities.forEach(city => {
+                        ajouteObjetHTML(city);
+                    });      
+                });
             }else if(dataJSON.includes(searchItem)) {
                 // le mot clef a été trouvé dans les données
                 console.log(`Données ${section} présente dans les données`);
