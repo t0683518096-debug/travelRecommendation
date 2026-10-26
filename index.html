@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Voyage +</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <nav><h1>Voyage +</h1>
+    <ul>
+      <li><a href="./index.html" id="home">Accueil </a></li>
+      <li><a href="./about.html" id="About">Qui sommes nous ?</a></li>
+      <li><a href="./contact.html" id="contact">Contactez-nous</a></li>
+      <li><input type="text" id="searchInput" placeholder="Entrez un type de voyage (plage, temple, etc...)">  </li>
+      <li><button id='btnSearch'>Rechercher</button>
+      <li><button id='btnReset'>Réinitialiser</button>
+    </ul>
+    </nav>
+    <p>Recherchez vos voyages selon le retour du public.</p>
+    <div id="result" class="grille-conteneur">
+      <div class="grille-item">
+        <img src="./Paris-en-photos-scaled-1536x1026.webp" style="width: 93vw">
+        <p>Paris <span id="heureLocale" style="font-size:10px"></span> - Vue générale de la vile </p>
+      </div>
+      <script src="./script.js"></script>
+    </body>
+</html>
